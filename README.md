@@ -2,6 +2,7 @@
 
 [![calendar-fp](https://circleci.com/gh/calendar-fp/calendar-fp.svg?style=svg)](https://circleci.com/gh/calendar-fp/calendar-fp)
 [![npm version](https://badge.fury.io/js/calendar-fp.svg)](https://badge.fury.io/js/calendar-fp)
+[![codecov](https://codecov.io/gh/calendar-fp/calendar-fp/branch/master/graph/badge.svg?token=md910beGWr)](https://codecov.io/gh/calendar-fp/calendar-fp)
 
 Framework agnostic calendar helper functions. It uses `date-fns` library for date manipulations.
 
