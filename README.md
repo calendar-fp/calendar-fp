@@ -34,3 +34,10 @@ console.log(getDays());
 ```
 
 Code Sandbox: https://codesandbox.io/s/bold-dawn-h2ohv?file=/src/index.js
+
+### Implementations
+
+*All are work in progress*
+Vanilla JS: https://github.com/calendar-fp/calendar-fp-vanilla-js
+React: https://github.com/calendar-fp/calendar-fp-react
+Vue: https://github.com/calendar-fp/calendar-fp-vue
