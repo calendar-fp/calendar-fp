@@ -1,2 +1,3 @@
-# react-calendar-diy
-react-calendar-diy
+# Framework agnostic Calendar
+
+WIP
