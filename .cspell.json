@@ -3,9 +3,8 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
   "language": "en",
   "words": [
-    "bitjson",
-    "bitauth",
-    "cimg",
+    "calendar-fp",
+    "calendar",
     "circleci",
     "codecov",
     "commitlint",

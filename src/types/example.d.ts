@@ -10,14 +10,14 @@
  * for the package, you may want to declare your own. (If you're using the
  * `noImplicitAny` compiler options, you'll be required to declare it.)
  *
- * This is an example type definition which allows import from `module-name`,
+ * This is an example type definition which allows import from `calendar-fp`,
  * e.g.:
  * ```ts
- * import something from 'module-name';
+ * import something from 'calendar-fp';
  * something();
  * ```
  */
-declare module 'module-name' {
+declare module 'calendar-fp' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const whatever: any;
   export = whatever;
