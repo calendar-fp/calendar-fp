@@ -12,12 +12,12 @@ const NUM_DAYS_WEEK = 7;
 const NUM_ROWS_CALENDAR = 5;
 const TOTAL_DAYS_CALENDAR = NUM_DAYS_WEEK * NUM_ROWS_CALENDAR;
 
-/* replacement for lodash fp methods that didn't work as expected */
+// replacement for lodash fp methods that didn't work as expected
 const fill = (total: number) => (data: Date | null | undefined) => {
   return new Array(total).fill(data);
 };
 
-/* lodash/fp/map didn't provide index in it's iterator function */
+// lodash/fp/map didn't provide index in it's iterator function
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const map = (iterator: (item: any, index: number) => any) => (
   data: readonly Date[]
@@ -124,18 +124,20 @@ export function getDays(startDay = 0, dayFormat = 'EEE'): readonly string[] {
  * ```
  *
  * @param startDay - Current month as a Date object.
+ * param startDay - Optional Day to start calendar on
  * @param dateFormat - Optional date formatting
  * @returns string[] | Date[]
  */
 export function getAllDates(
   currentMonth: Date,
+  startDay = 0,
   dateFormat?: string
 ): readonly Date[] | readonly string[] {
   const monthStart = startOfMonth(currentMonth);
   const startDate = startOfWeek(monthStart);
 
   const addDaysToDate = (currentDate: Date, index: number) => {
-    const date = addDays(index)(currentDate);
+    const date = addDays(index + startDay)(currentDate);
     if (dateFormat) return format(dateFormat)(date);
     return date;
   };
