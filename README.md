@@ -14,7 +14,7 @@ Framework agnostic calendar helper functions.
 Docs: https://calendar-fp.github.io/calendar-fp/globals.html
 
 ### Example
-```
+```js
 import {
   getAllDates,
   getAllDatesGroupedByWeek,
