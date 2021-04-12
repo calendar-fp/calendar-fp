@@ -65,9 +65,41 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<a href="#calendar-fp" id="calendar-fp" style="color: inherit; text-decoration: none;">
-					<h1>calendar-fp</h1>
+					<h1>Calendar FP</h1>
 				</a>
-				<p>Framework agnostic calendar helper functions</p>
+				<p><a href="https://circleci.com/gh/calendar-fp/calendar-fp"><img src="https://circleci.com/gh/calendar-fp/calendar-fp.svg?style=svg" alt="calendar-fp"></a>
+					<a href="https://badge.fury.io/js/calendar-fp"><img src="https://badge.fury.io/js/calendar-fp.svg" alt="npm version"></a>
+				<a href="https://codecov.io/gh/calendar-fp/calendar-fp"><img src="https://codecov.io/gh/calendar-fp/calendar-fp/branch/master/graph/badge.svg?token=md910beGWr" alt="codecov"></a></p>
+				<p>Framework agnostic calendar helper functions.</p>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h3>Features</h3>
+				</a>
+				<ul>
+					<li>All functional style coding</li>
+					<li>Small codebase</li>
+					<li>It uses <code>date-fns</code> library for date manipulations.</li>
+				</ul>
+				<p>Docs: <a href="https://calendar-fp.github.io/calendar-fp/globals.html">https://calendar-fp.github.io/calendar-fp/globals.html</a></p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h3>Example</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> {
+  getAllDates,
+  getAllDatesGroupedByWeek,
+  getDays,
+  getMonthAndYear,
+  getNextMonth,
+  getPrevMonth
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;calendar-fp&quot;</span>;
+
+
+<span class="hljs-built_in">console</span>.log(getAllDates(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2021</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)));
+<span class="hljs-comment">// [new Date(2020, 11, 27), new Date(2020, 11, 28), new Date(2020, 11, 29), ...]</span>
+
+<span class="hljs-built_in">console</span>.log(getDays());
+<span class="hljs-comment">// [&#x27;Sun&#x27;, &#x27;Mon&#x27;, &#x27;Tue&#x27;, &#x27;Wed&#x27;, &#x27;Thu&#x27;, &#x27;Fri&#x27;, &#x27;Sat&#x27;]</span>
+</code></pre>
+				<p>Code Sandbox: <a href="https://codesandbox.io/s/bold-dawn-h2ohv?file=/src/index.js">https://codesandbox.io/s/bold-dawn-h2ohv?file=/src/index.js</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
