@@ -17,12 +17,12 @@ Docs: https://calendar-fp.github.io/calendar-fp/globals.html
 ```js
 import {
   getAllDates,
-  getAllDatesGroupedByWeek,
+  getAllDatesMatrix,
   getDays,
   getMonthAndYear,
   getNextMonth,
   getPrevMonth
-} from "calendar-fp";
+} from 'calendar-fp';
 
 
 console.log(getAllDates(new Date(2021, 0, 1)));
