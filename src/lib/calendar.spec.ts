@@ -2,7 +2,7 @@ import test from 'ava';
 
 import {
   getAllDates,
-  getAllDatesGroupedByWeek,
+  getAllDatesMatrix,
   getDays,
   getMonthAndYear,
   getNextMonth,
@@ -27,10 +27,6 @@ test('getMonthAndYear different format', (t) => {
 
 test('getDays', (t) => {
   t.deepEqual(getDays(), ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
-});
-
-test('getDays starting from Monday', (t) => {
-  t.deepEqual(getDays(1), ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
 });
 
 test('getAllDates', (t) => {
@@ -71,95 +67,20 @@ test('getAllDates', (t) => {
     new Date(2021, 0, 28),
     new Date(2021, 0, 29),
     new Date(2021, 0, 30),
+    new Date(2021, 0, 31),
+    new Date(2021, 1, 1),
+    new Date(2021, 1, 2),
+    new Date(2021, 1, 3),
+    new Date(2021, 1, 4),
+    new Date(2021, 1, 5),
+    new Date(2021, 1, 6),
   ]);
 });
 
-test('getAllDates custom start day as monday', (t) => {
-  const allDates = getAllDates(new Date(2021, 0, 1), 1, 'd');
-  t.deepEqual(allDates, [
-    '28',
-    '29',
-    '30',
-    '31',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-  ]);
-});
-
-test('getAllDates customFormat', (t) => {
-  const allDates = getAllDates(new Date(2021, 0, 1), 0, 'd');
-  t.deepEqual(allDates, [
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-  ]);
-});
-
-test('getAllDatesGroupedByWeek', (t) => {
-  const allDates = getAllDatesGroupedByWeek(new Date(2021, 0, 1));
-  t.deepEqual(allDates, {
-    1: [
+test('getAllDatesMatrix', (t) => {
+  const datesMatrix = getAllDatesMatrix(new Date(2021, 0, 1));
+  t.deepEqual(datesMatrix, [
+    [
       new Date(2020, 11, 27),
       new Date(2020, 11, 28),
       new Date(2020, 11, 29),
@@ -168,7 +89,7 @@ test('getAllDatesGroupedByWeek', (t) => {
       new Date(2021, 0, 1),
       new Date(2021, 0, 2),
     ],
-    2: [
+    [
       new Date(2021, 0, 3),
       new Date(2021, 0, 4),
       new Date(2021, 0, 5),
@@ -177,7 +98,7 @@ test('getAllDatesGroupedByWeek', (t) => {
       new Date(2021, 0, 8),
       new Date(2021, 0, 9),
     ],
-    3: [
+    [
       new Date(2021, 0, 10),
       new Date(2021, 0, 11),
       new Date(2021, 0, 12),
@@ -186,7 +107,7 @@ test('getAllDatesGroupedByWeek', (t) => {
       new Date(2021, 0, 15),
       new Date(2021, 0, 16),
     ],
-    4: [
+    [
       new Date(2021, 0, 17),
       new Date(2021, 0, 18),
       new Date(2021, 0, 19),
@@ -195,7 +116,7 @@ test('getAllDatesGroupedByWeek', (t) => {
       new Date(2021, 0, 22),
       new Date(2021, 0, 23),
     ],
-    5: [
+    [
       new Date(2021, 0, 24),
       new Date(2021, 0, 25),
       new Date(2021, 0, 26),
@@ -204,5 +125,14 @@ test('getAllDatesGroupedByWeek', (t) => {
       new Date(2021, 0, 29),
       new Date(2021, 0, 30),
     ],
-  });
+    [
+      new Date(2021, 0, 31),
+      new Date(2021, 1, 1),
+      new Date(2021, 1, 2),
+      new Date(2021, 1, 3),
+      new Date(2021, 1, 4),
+      new Date(2021, 1, 5),
+      new Date(2021, 1, 6),
+    ],
+  ]);
 });

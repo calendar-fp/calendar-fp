@@ -1,29 +1,20 @@
-import addDays from 'date-fns/fp/addDays';
 import addMonths from 'date-fns/fp/addMonths';
+import eachDayOfInterval from 'date-fns/fp/eachDayOfInterval';
+import endOfMonth from 'date-fns/fp/endOfMonth';
+import endOfWeek from 'date-fns/fp/endOfWeek';
 import format from 'date-fns/fp/format';
-import getWeek from 'date-fns/fp/getWeek';
 import startOfMonth from 'date-fns/fp/startOfMonth';
 import startOfWeek from 'date-fns/fp/startOfWeek';
 import subMonths from 'date-fns/fp/subMonths';
-import flow from 'lodash/fp/flow';
-import groupBy from 'lodash/fp/groupBy';
+import map from 'lodash/fp/map';
 
-const NUM_DAYS_WEEK = 7;
-const NUM_ROWS_CALENDAR = 5;
-const TOTAL_DAYS_CALENDAR = NUM_DAYS_WEEK * NUM_ROWS_CALENDAR;
-
-// replacement for lodash fp methods that didn't work as expected
-const fill = (total: number) => (data: Date | null | undefined) => {
-  return new Array(total).fill(data);
-};
-
-// lodash/fp/map didn't provide index in it's iterator function
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const map = (iterator: (item: any, index: number) => any) => (
-  data: readonly Date[]
-) => {
-  return data.map(iterator);
-};
+const arrayToMatrix = (array: readonly Date[], columns: number) =>
+  /* eslint-disable-next-line functional/immutable-data */
+  Array(Math.ceil(array.length / columns))
+    .fill('')
+    .reduce((acc, _, index) => {
+      return [...acc, [...array].splice(index * columns, columns)];
+    }, []);
 
 /**
  * Get previous month from a date
@@ -90,23 +81,16 @@ export function getMonthAndYear(currentDate: Date, dateFormat = 'MMMM yyyy') {
  * // => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
  * ```
  *
- * @param startDay - Current month as a Date object.
  * @param dayFormat - Optional day formatting
  * @returns string[]
  */
-export function getDays(startDay = 0, dayFormat = 'EEE'): readonly string[] {
+export function getDays(dayFormat = 'EEE'): readonly string[] {
   const startDate = startOfWeek(new Date());
+  const endDate = endOfWeek(startDate);
 
-  const dayFormatMapper = (_: Date, index: number) => {
-    const dayName = flow(
-      addDays(index + startDay),
-      format(dayFormat)
-    )(startDate);
+  const datesInWeek = eachDayOfInterval({ start: startDate, end: endDate });
 
-    return dayName;
-  };
-
-  const dayNames = flow(fill(NUM_DAYS_WEEK), map(dayFormatMapper))(null);
+  const dayNames = map(format(dayFormat))(datesInWeek);
   return dayNames;
 }
 
@@ -124,30 +108,15 @@ export function getDays(startDay = 0, dayFormat = 'EEE'): readonly string[] {
  * ```
  *
  * @param startDay - Current month as a Date object.
- * param startDay - Optional Day to start calendar on
- * @param dateFormat - Optional date formatting
  * @returns string[] | Date[]
  */
-export function getAllDates(
-  currentMonth: Date,
-  startDay = 0,
-  dateFormat?: string
-): readonly Date[] | readonly string[] {
+export function getAllDates(currentMonth: Date): readonly Date[] {
   const monthStart = startOfMonth(currentMonth);
   const startDate = startOfWeek(monthStart);
+  const monthEnd = endOfMonth(currentMonth);
+  const endDate = endOfWeek(monthEnd);
 
-  const addDaysToDate = (currentDate: Date, index: number) => {
-    const date = addDays(index + startDay)(currentDate);
-    if (dateFormat) return format(dateFormat)(date);
-    return date;
-  };
-
-  const allDatesInMonth = flow(
-    fill(TOTAL_DAYS_CALENDAR),
-    map(addDaysToDate)
-  )(startDate);
-
-  return allDatesInMonth;
+  return eachDayOfInterval({ start: startDate, end: endDate });
 }
 
 /**
@@ -156,30 +125,29 @@ export function getAllDates(
  *
  * ### Example
  * ```js
- * import { getAllDates } from '@calendar-fp/calendar-fp'
- * console.log(getAllDatesGroupedByWeek(new Date(2021, 0, 1)))
- * {
- *   1: [
+ * import { getAllDatesMatrix } from '@calendar-fp/calendar-fp'
+ * console.log(getAllDatesMatrix(new Date(2021, 0, 1)))
+ * [
+ *   [
  *     new Date(2020, 11, 27),
  *     new Date(2020, 11, 28),
  *     new Date(2020, 11, 29),
  *     ...
  *   ],
- *   2: [
+ *   [
  *     ...
  *   ]
  *   ...
- * }
+ * ]
  * ```
  *
  * @param startDay - Current month as a Date object.
  * @returns Date[]
  */
-export function getAllDatesGroupedByWeek(currentMonth: Date) {
+export function getAllDatesMatrix(currentMonth: Date) {
   const allDatesInMonth = getAllDates(currentMonth);
-  const groupDateByWeek = (date: Date) => getWeek(date);
 
-  const datesGroupedByRow = groupBy(groupDateByWeek)(allDatesInMonth);
+  const datesGroupedByRow = arrayToMatrix(allDatesInMonth, 7);
 
   return datesGroupedByRow;
 }
